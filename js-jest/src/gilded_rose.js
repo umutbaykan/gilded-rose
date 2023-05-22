@@ -23,9 +23,17 @@ class Shop {
 
   checkIfExpired(item) {
     if (item.sellIn < 0) {
-      return -2;
+      return true;
     } else {
-      return -1;
+      return false;
+    }
+  }
+
+  qualityDefaultLossAmount(item) {
+    if (this.checkIfExpired(item)) {
+      return -2
+    } else {
+      return -1
     }
   }
 
@@ -50,6 +58,11 @@ class Shop {
       }
     } else if (item.name === "Sulfuras, Hand of Ragnaros") {
       return;
+    } else if (item.name === "Conjured Mana Cake") {
+      if (this.checkIfExpired(item)) {
+        this.adjustQuality(item, (this.qualityOverrideValues["Conjured Mana Cake"])*2);
+      } else {
+        this.adjustQuality(item, (this.qualityOverrideValues["Conjured Mana Cake"]))}
     }
   }
 
@@ -69,7 +82,8 @@ class Shop {
         this.adjustSpecialItemQuality(currentItem);
       } else {
         this.lowerSellIn(currentItem);
-        this.adjustQuality(currentItem, this.checkIfExpired(currentItem));
+        const valueToSubtract = this.qualityDefaultLossAmount((currentItem))
+        this.adjustQuality(currentItem, valueToSubtract);
       }
     }
   }

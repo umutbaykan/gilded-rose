@@ -68,4 +68,21 @@ describe("Gilded Rose", () => {
       expect(gildedRose.items[0].quality).toBe(80);
     });
   });
+
+  describe('for conjured items', () => {
+    test('it loses quality by 2 points on a regular day', () => {
+      const gildedRose = new Shop([new Item("Conjured Mana Cake", 2, 4)]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(1);
+      expect(gildedRose.items[0].quality).toBe(2);
+    }); 
+
+    test('it loses quality by 4 points when expired', () => {
+      const gildedRose = new Shop([new Item("Conjured Mana Cake", 1, 8)]);
+      gildedRose.updateQuality();
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(-1);
+      expect(gildedRose.items[0].quality).toBe(2);
+    })  
+  });
 });
