@@ -9,7 +9,7 @@ class Item {
 class Shop {
   constructor(items = []) {
     this.items = items;
-    this.overrideItems = {
+    this.qualityOverrideValues = {
       "Aged Brie": 1,
       "Sulfuras, Hand of Ragnaros": 0,
       "Conjured Mana Cake": -2,
@@ -38,29 +38,39 @@ class Shop {
   adjustSpecialItemQuality(item) {
     if (item.name === "Aged Brie") {
       if (this.itemCanIncreaseQuality(item)) {
-        item.quality += this.overrideItems["Aged Brie"];
+        item.quality += this.qualityOverrideValues["Aged Brie"];
       }
+    } else if (item.name === "Sulfuras, Hand of Ragnaros") {
+      return;
+    }
+  }
+
+  adjustSpecialItemSellIn(item) {
+    if (item.name === "Sulfuras, Hand of Ragnaros") {
+      return;
+    } else {
+      this.lowerSellIn(item);
     }
   }
 
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       const currentItem = this.items[i];
-      if (currentItem.name in this.overrideItems) {
+      if (currentItem.name in this.qualityOverrideValues) {
         this.adjustSpecialItemQuality(currentItem);
+        this.adjustSpecialItemSellIn(currentItem);
       } else {
         this.adjustQuality(currentItem, -1);
+        this.lowerSellIn(currentItem);
       }
-
-      this.lowerSellIn(currentItem);
     }
   }
 
   // updateQuality() {
   //   for (let i = 0; i < this.items.length; i++) {
   //     const currentItem = this.items[i];
-  //     if (currentItem.name in this.overrideItems) {
-  //       this.adjustQuality(currentItem, this.overrideItems.currentItem);
+  //     if (currentItem.name in this.qualityOverrideValues) {
+  //       this.adjustQuality(currentItem, this.qualityOverrideValues.currentItem);
   //     } else {
   //       this.adjustQuality(currentItem, -1)
   // if (currentItem.quality < 50) {
