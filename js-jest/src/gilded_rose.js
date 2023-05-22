@@ -17,38 +17,41 @@ class Shop {
     };
   }
 
-  lowerSellIn(item) {
-    item.sellIn -= 1;
-  }
-
-  checkIfExpired(item) {
-    if (item.sellIn < 0) {
-      return true;
-    } else {
-      return false;
+  updateQuality() {
+    for (let i = 0; i < this.items.length; i++) {
+      const currentItem = this.items[i];
+      if (currentItem.name in this.qualityOverrideValues) {
+        this.adjustSpecialItemSellIn(currentItem);
+        this.adjustSpecialItemQuality(currentItem);
+      } else {
+        this.adjustSellIn(currentItem);
+        const valueToSubtract = this.qualityDefaultLossAmount(currentItem);
+        this.adjustQuality(currentItem, valueToSubtract);
+      }
     }
   }
+
+  // Global settings
 
   qualityDefaultLossAmount(item) {
     if (this.checkIfExpired(item)) {
-      return -2
+      return -2;
     } else {
-      return -1
+      return -1;
     }
   }
 
-  itemCanIncreaseQuality(item) {
-    if (item.quality === 50) {
-      return false;
-    } else {
-      return true;
-    }
-  }
+  // Adjustment methods
+  // These methods change the quality / sellIn attributes of the items
 
   adjustQuality(item, factor) {
     if (item.quality > 0) {
       item.quality += factor;
     }
+  }
+
+  adjustSellIn(item) {
+    item.sellIn -= 1;
   }
 
   adjustSpecialItemQuality(item) {
@@ -60,9 +63,12 @@ class Shop {
       return;
     } else if (item.name === "Conjured Mana Cake") {
       if (this.checkIfExpired(item)) {
-        this.adjustQuality(item, (this.qualityOverrideValues["Conjured Mana Cake"])*2);
+        this.adjustQuality(item, this.qualityOverrideValues["Conjured Mana Cake"] * 2
+        );
       } else {
-        this.adjustQuality(item, (this.qualityOverrideValues["Conjured Mana Cake"]))}
+        this.adjustQuality(item, this.qualityOverrideValues["Conjured Mana Cake"]
+        );
+      }
     }
   }
 
@@ -70,21 +76,25 @@ class Shop {
     if (item.name === "Sulfuras, Hand of Ragnaros") {
       return;
     } else {
-      this.lowerSellIn(item);
+      this.adjustSellIn(item);
     }
   }
 
-  updateQuality() {
-    for (let i = 0; i < this.items.length; i++) {
-      const currentItem = this.items[i];
-      if (currentItem.name in this.qualityOverrideValues) {
-        this.adjustSpecialItemSellIn(currentItem);
-        this.adjustSpecialItemQuality(currentItem);
-      } else {
-        this.lowerSellIn(currentItem);
-        const valueToSubtract = this.qualityDefaultLossAmount((currentItem))
-        this.adjustQuality(currentItem, valueToSubtract);
-      }
+  // Helper methods
+
+  checkIfExpired(item) {
+    if (item.sellIn < 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  itemCanIncreaseQuality(item) {
+    if (item.quality === 50) {
+      return false;
+    } else {
+      return true;
     }
   }
 
