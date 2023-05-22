@@ -9,35 +9,24 @@ class Item {
 class Shop {
   constructor(items = []) {
     this.items = items;
-    this.qualityOverrideValues = {
-      "Aged Brie": 1,
-      "Sulfuras, Hand of Ragnaros": 0,
-      "Conjured Mana Cake": -2,
-      "Backstage passes to a TAFKAL80ETC concert": 1,
+    this.specialItems = {
+      "Aged Brie": {qualityHandle: (item) => this.adjustAgedBrieQuality(item), sellInHandle: (item) => this.adjustSellIn(item)},
+      "Sulfuras, Hand of Ragnaros":  {qualityHandle: ()=>{return}, sellInHandle: ()=>{return}},
+      "Conjured Mana Cake":  {qualityHandle: (item) => this.adjustConjuredQuality(item), sellInHandle: (item) => this.adjustSellIn(item)},
+      "Backstage passes to a TAFKAL80ETC concert":  {qualityHandle: (item) => this.adjustBackstageQuality(item), sellInHandle: (item) => this.adjustSellIn(item)},
     };
   }
 
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       const currentItem = this.items[i];
-      if (currentItem.name in this.qualityOverrideValues) {
-        this.adjustSpecialItemSellIn(currentItem);
-        this.adjustSpecialItemQuality(currentItem);
+      if (currentItem.name in this.specialItems) {
+        this.specialItems[currentItem.name].sellInHandle(currentItem)
+        this.specialItems[currentItem.name].qualityHandle(currentItem)
       } else {
         this.adjustSellIn(currentItem);
-        const valueToSubtract = this.qualityDefaultLossAmount(currentItem);
-        this.reduceQuality(currentItem, valueToSubtract);
+        this.adjustGeneralQuality(currentItem, 1);
       }
-    }
-  }
-
-  // Global settings
-
-  qualityDefaultLossAmount(item) {
-    if (this.checkIfExpired(item)) {
-      return -2;
-    } else {
-      return -1;
     }
   }
 
@@ -46,7 +35,7 @@ class Shop {
 
   reduceQuality(item, factor) {
     if (item.quality > 0) {
-      item.quality += factor;
+      item.quality -= factor;
     }
   }
 
@@ -62,58 +51,47 @@ class Shop {
     item.sellIn -= 1;
   }
 
-  adjustSpecialItemQuality(item) {
-    if (item.name === "Aged Brie") {
-      if (this.itemCanIncreaseQuality(item)) {
-        if (item.sellIn < 0) {
-          this.addQuality(item, this.qualityOverrideValues[item.name] * 2);
-        } else {
-          this.addQuality(item, this.qualityOverrideValues[item.name]);
-        }
-      }
-    } else if (item.name === "Sulfuras, Hand of Ragnaros") {
-      return;
-    } else if (item.name === "Conjured Mana Cake") {
-      if (this.checkIfExpired(item)) {
-        this.reduceQuality(item, this.qualityOverrideValues[item.name] * 2);
-      } else {
-        this.reduceQuality(item, this.qualityOverrideValues[item.name]);
-      }
-    } else if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
-      if (this.itemCanIncreaseQuality(item)) {
-        if (item.sellIn < 0) {
-          item.quality = 0;
-        } else if (item.sellIn < 5) {
-          this.addQuality(item, 3);
-        } else if (item.sellIn < 10) {
-          this.addQuality(item, 2);
-        } else {
-          this.addQuality(item, 1);
-        }
-      }
+  // Item specific adjustments
+  adjustAgedBrieQuality(item) {
+    if (this.isExpired(item)) {
+      this.addQuality(item, 2);
+    } else {
+      this.addQuality(item, 1);
     }
   }
 
-  adjustSpecialItemSellIn(item) {
-    if (item.name === "Sulfuras, Hand of Ragnaros") {
-      return;
+  adjustConjuredQuality(item) {
+    if (this.isExpired(item)) {
+      this.reduceQuality(item, 4);
     } else {
-      this.adjustSellIn(item);
+      this.reduceQuality(item, 2);
+    }
+  }
+
+  adjustGeneralQuality(item) {
+    if (this.isExpired(item)) {
+      this.reduceQuality(item, 2);
+    } else {
+      this.reduceQuality(item, 1);
+    }
+  }
+
+  adjustBackstageQuality(item) {
+    if (this.isExpired(item)) {
+      item.quality = 0
+    } else if (item.sellIn < 5) {
+      this.addQuality(item, 3);
+    } else if (item.sellIn < 10) {
+      this.addQuality(item, 2);
+    } else {
+      this.addQuality(item, 1);
     }
   }
 
   // Helper methods
 
-  checkIfExpired(item) {
+  isExpired(item) {
     if (item.sellIn < 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  itemCanIncreaseQuality(item) {
-    if (item.quality < 50) {
       return true;
     } else {
       return false;
