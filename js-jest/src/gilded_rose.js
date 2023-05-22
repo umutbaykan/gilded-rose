@@ -10,26 +10,36 @@ class Shop {
   constructor(items = []) {
     this.items = items;
     this.overrideItems = {
-      'Aged Brie': 1, 
-      'Sulfuras, Hand of Ragnaros': 0,
-      'Conjured Mana Cake': -2, 
-      'Backstage passes to a TAFKAL80ETC concert': 0
-    }
+      "Aged Brie": 1,
+      "Sulfuras, Hand of Ragnaros": 0,
+      "Conjured Mana Cake": -2,
+      "Backstage passes to a TAFKAL80ETC concert": 0,
+    };
   }
 
   lowerSellIn(item) {
     item.sellIn -= 1;
   }
 
+  itemCanIncreaseQuality(item) {
+    if (item.quality === 50) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   adjustQuality(item, factor) {
-  if (item.quality > 0) {
-    item.quality += factor;
+    if (item.quality > 0) {
+      item.quality += factor;
     }
   }
 
   adjustSpecialItemQuality(item) {
     if (item.name === "Aged Brie") {
-      item.quality += this.overrideItems["Aged Brie"]
+      if (this.itemCanIncreaseQuality(item)) {
+        item.quality += this.overrideItems["Aged Brie"];
+      }
     }
   }
 
@@ -39,8 +49,9 @@ class Shop {
       if (currentItem.name in this.overrideItems) {
         this.adjustSpecialItemQuality(currentItem);
       } else {
-      this.adjustQuality(currentItem, -1);}
-      
+        this.adjustQuality(currentItem, -1);
+      }
+
       this.lowerSellIn(currentItem);
     }
   }
@@ -52,21 +63,21 @@ class Shop {
   //       this.adjustQuality(currentItem, this.overrideItems.currentItem);
   //     } else {
   //       this.adjustQuality(currentItem, -1)
-        // if (currentItem.quality < 50) {
-        //   currentItem.quality = currentItem.quality + 1;
-        //   if (currentItem.name == 'Backstage passes to a TAFKAL80ETC concert') {
-        //     if (currentItem.sellIn < 11) {
-        //       if (currentItem.quality < 50) {
-        //         currentItem.quality = currentItem.quality + 1;
-        //       }
-        //     }
-        //     if (currentItem.sellIn < 6) {
-        //       if (currentItem.quality < 50) {
-        //         currentItem.quality = currentItem.quality + 1;
-        //       }
-        //     }
-        //   }
-        // }
+  // if (currentItem.quality < 50) {
+  //   currentItem.quality = currentItem.quality + 1;
+  //   if (currentItem.name == 'Backstage passes to a TAFKAL80ETC concert') {
+  //     if (currentItem.sellIn < 11) {
+  //       if (currentItem.quality < 50) {
+  //         currentItem.quality = currentItem.quality + 1;
+  //       }
+  //     }
+  //     if (currentItem.sellIn < 6) {
+  //       if (currentItem.quality < 50) {
+  //         currentItem.quality = currentItem.quality + 1;
+  //       }
+  //     }
+  //   }
+  // }
   //     }
   //     if (currentItem.name != 'Sulfuras, Hand of Ragnaros') {
   //       currentItem.sellIn = currentItem.sellIn - 1;
@@ -88,7 +99,7 @@ class Shop {
   //         }
   //       }
   //     }
-    // }
+  // }
 
   //   return this.items;
   // }
