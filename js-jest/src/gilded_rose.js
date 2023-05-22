@@ -13,8 +13,11 @@ class Shop {
   
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
-      this.items[i].quality -= 1;
-      this.items[i].sellIn -= 1;
+      const currentItem = this.items[i];
+      if (currentItem.quality > 0) {
+        currentItem.quality -= 1;
+      };
+      currentItem.sellIn -= 1;
     }
   }
   
