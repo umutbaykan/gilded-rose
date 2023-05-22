@@ -37,7 +37,7 @@ const requirements = {
     ["Backstage passes to a TAFKAL80ETC concert", 14, 21],
     ["Backstage passes to a TAFKAL80ETC concert", 9, 12],
     ["Backstage passes to a TAFKAL80ETC concert", 4, 13],
-    ["Conjured Mana Cake", 2, 4]
+    ["Conjured Mana Cake", 2, 4],
   ],
   day2: [
     ["+5 Dexterity Vest", 8, 18],
@@ -48,7 +48,7 @@ const requirements = {
     ["Backstage passes to a TAFKAL80ETC concert", 13, 22],
     ["Backstage passes to a TAFKAL80ETC concert", 8, 14],
     ["Backstage passes to a TAFKAL80ETC concert", 3, 16],
-    ["Conjured Mana Cake", 1, 2]
+    ["Conjured Mana Cake", 1, 2],
   ],
   day3: [
     ["+5 Dexterity Vest", 7, 17],
@@ -59,7 +59,7 @@ const requirements = {
     ["Backstage passes to a TAFKAL80ETC concert", 12, 23],
     ["Backstage passes to a TAFKAL80ETC concert", 7, 16],
     ["Backstage passes to a TAFKAL80ETC concert", 2, 19],
-    ["Conjured Mana Cake", 0, 0]
+    ["Conjured Mana Cake", 0, 0],
   ],
   day6: [
     ["+5 Dexterity Vest", 4, 14],
@@ -70,8 +70,8 @@ const requirements = {
     ["Backstage passes to a TAFKAL80ETC concert", 9, 27],
     ["Backstage passes to a TAFKAL80ETC concert", 4, 23],
     ["Backstage passes to a TAFKAL80ETC concert", -1, 0],
-    ["Conjured Mana Cake", -3, 0]
+    ["Conjured Mana Cake", -3, 0],
   ],
-}
+};
 
-module.exports = {items: items, requirements: requirements}
+module.exports = { items: items, requirements: requirements };
