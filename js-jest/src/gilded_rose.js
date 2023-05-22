@@ -52,9 +52,10 @@ class Shop {
 
   addQuality(item, factor) {
     if (item.quality >= 50) {
-      return
-    } else
-    { item.quality += factor }
+      return;
+    } else {
+      item.quality += factor;
+    }
   }
 
   adjustSellIn(item) {
@@ -64,24 +65,31 @@ class Shop {
   adjustSpecialItemQuality(item) {
     if (item.name === "Aged Brie") {
       if (this.itemCanIncreaseQuality(item)) {
-        this.addQuality(item, this.qualityOverrideValues[item.name]);
+        if (item.sellIn < 0) {
+          this.addQuality(item, this.qualityOverrideValues[item.name] * 2);
+        } else {
+          this.addQuality(item, this.qualityOverrideValues[item.name]);
+        }
       }
     } else if (item.name === "Sulfuras, Hand of Ragnaros") {
       return;
     } else if (item.name === "Conjured Mana Cake") {
       if (this.checkIfExpired(item)) {
-        this.adjustQuality(item, this.qualityOverrideValues[item.name] * 2
-        );
+        this.adjustQuality(item, this.qualityOverrideValues[item.name] * 2);
       } else {
-        this.adjustQuality(item, this.qualityOverrideValues[item.name]
-        );
+        this.adjustQuality(item, this.qualityOverrideValues[item.name]);
       }
     } else if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
       if (this.itemCanIncreaseQuality(item)) {
-        if (item.sellIn < 0) { item.quality = 0}
-        else if (item.sellIn < 5) { this.addQuality(item, 3) }
-        else if (item.sellIn < 10) { this.addQuality(item, 2) }
-        else { this.addQuality(item, 1)}        
+        if (item.sellIn < 0) {
+          item.quality = 0;
+        } else if (item.sellIn < 5) {
+          this.addQuality(item, 3);
+        } else if (item.sellIn < 10) {
+          this.addQuality(item, 2);
+        } else {
+          this.addQuality(item, 1);
+        }
       }
     }
   }
@@ -111,54 +119,6 @@ class Shop {
       return true;
     }
   }
-
-  // updateQuality() {
-  //   for (let i = 0; i < this.items.length; i++) {
-  //     const currentItem = this.items[i];
-  //     if (currentItem.name in this.qualityOverrideValues) {
-  //       this.adjustQuality(currentItem, this.qualityOverrideValues.currentItem);
-  //     } else {
-  //       this.adjustQuality(currentItem, -1)
-  // if (currentItem.quality < 50) {
-  //   currentItem.quality = currentItem.quality + 1;
-  //   if (currentItem.name == 'Backstage passes to a TAFKAL80ETC concert') {
-  //     if (currentItem.sellIn < 11) {
-  //       if (currentItem.quality < 50) {
-  //         currentItem.quality = currentItem.quality + 1;
-  //       }
-  //     }
-  //     if (currentItem.sellIn < 6) {
-  //       if (currentItem.quality < 50) {
-  //         currentItem.quality = currentItem.quality + 1;
-  //       }
-  //     }
-  //   }
-  // }
-  //     }
-  //     if (currentItem.name != 'Sulfuras, Hand of Ragnaros') {
-  //       currentItem.sellIn = currentItem.sellIn - 1;
-  //     }
-  //     if (currentItem.sellIn < 0) {
-  //       if (currentItem.name != 'Aged Brie') {
-  //         if (currentItem.name != 'Backstage passes to a TAFKAL80ETC concert') {
-  //           if (currentItem.quality > 0) {
-  //             if (currentItem.name != 'Sulfuras, Hand of Ragnaros') {
-  //               currentItem.quality = currentItem.quality - 1;
-  //             }
-  //           }
-  //         } else {
-  //           currentItem.quality = currentItem.quality - currentItem.quality;
-  //         }
-  //       } else {
-  //         if (currentItem.quality < 50) {
-  //           currentItem.quality = currentItem.quality + 1;
-  //         }
-  //       }
-  //     }
-  // }
-
-  //   return this.items;
-  // }
 }
 
 module.exports = {
