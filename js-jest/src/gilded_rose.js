@@ -27,11 +27,17 @@ class Shop {
     }
   }
 
+  adjustSpecialItemQuality(item) {
+    if (item.name === "Aged Brie") {
+      item.quality += this.overrideItems["Aged Brie"]
+    }
+  }
+
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       const currentItem = this.items[i];
       if (currentItem.name in this.overrideItems) {
-        this.adjustQuality(currentItem, this.overrideItems[currentItem.name]);
+        this.adjustSpecialItemQuality(currentItem);
       } else {
       this.adjustQuality(currentItem, -1);}
       
