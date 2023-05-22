@@ -83,6 +83,15 @@ describe("Gilded Rose", () => {
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(-1);
       expect(gildedRose.items[0].quality).toBe(2);
-    })  
+    });  
+  });
+
+  describe('for Backstage passes', () => {
+    test('it gains quality by 1 point when expiration > 10 until expiry', () => {
+      const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 11, 0)]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(10);
+      expect(gildedRose.items[0].quality).toBe(1);
+    });
   });
 });

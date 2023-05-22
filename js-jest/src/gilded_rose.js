@@ -13,7 +13,7 @@ class Shop {
       "Aged Brie": 1,
       "Sulfuras, Hand of Ragnaros": 0,
       "Conjured Mana Cake": -2,
-      "Backstage passes to a TAFKAL80ETC concert": 0,
+      "Backstage passes to a TAFKAL80ETC concert": 1,
     };
   }
 
@@ -57,17 +57,21 @@ class Shop {
   adjustSpecialItemQuality(item) {
     if (item.name === "Aged Brie") {
       if (this.itemCanIncreaseQuality(item)) {
-        item.quality += this.qualityOverrideValues["Aged Brie"];
+        item.quality += this.qualityOverrideValues[item.name];
       }
     } else if (item.name === "Sulfuras, Hand of Ragnaros") {
       return;
     } else if (item.name === "Conjured Mana Cake") {
       if (this.checkIfExpired(item)) {
-        this.adjustQuality(item, this.qualityOverrideValues["Conjured Mana Cake"] * 2
+        this.adjustQuality(item, this.qualityOverrideValues[item.name] * 2
         );
       } else {
-        this.adjustQuality(item, this.qualityOverrideValues["Conjured Mana Cake"]
+        this.adjustQuality(item, this.qualityOverrideValues[item.name]
         );
+      }
+    } else if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
+      if (this.itemCanIncreaseQuality(item)) {
+        item.quality += this.qualityOverrideValues[item.name];
       }
     }
   }
