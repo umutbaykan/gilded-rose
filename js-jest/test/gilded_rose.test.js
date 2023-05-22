@@ -43,15 +43,23 @@ describe("Gilded Rose", () => {
       expect(gildedRose.items[0].sellIn).toBe(0);
       expect(gildedRose.items[0].quality).toBe(50);
     });
+
+    test("should gain twice the quality points once expired", () => {
+      const gildedRose = new Shop([new Item("Aged Brie", 1, 0)]);
+      gildedRose.updateQuality();
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(-1);
+      expect(gildedRose.items[0].quality).toBe(3);
+    });
   });
 
   describe("for sulfuras the legendary item", () => {
     test("it should not gain or lose quality", () => {
       const gildedRose = new Shop([
-        new Item("Sulfuras, Hand of Ragnaros", 10, 80),
+        new Item("Sulfuras, Hand of Ragnaros", 0, 80),
       ]);
       gildedRose.updateQuality();
-      expect(gildedRose.items[0].sellIn).toBe(10);
+      expect(gildedRose.items[0].sellIn).toBe(0);
       expect(gildedRose.items[0].quality).toBe(80);
     });
 
@@ -92,7 +100,7 @@ describe("Gilded Rose", () => {
       expect(gildedRose.items[0].quality).toBe(1);
     });
 
-    test("it gains quality by 2 points when 5 < expiration < 10 days until expiry", () => {
+    test("it gains quality by 2 points when 5 < expiration <= 10 days until expiry", () => {
       const gildedRose = new Shop([
         new Item("Backstage passes to a TAFKAL80ETC concert", 10, 0),
       ]);
@@ -101,7 +109,7 @@ describe("Gilded Rose", () => {
       expect(gildedRose.items[0].quality).toBe(2);
     });
 
-    test("it gains quality by 3 points when 0 < expiration < 5 days until expiry", () => {
+    test("it gains quality by 3 points when 0 < expiration <= 5 days until expiry", () => {
       const gildedRose = new Shop([
         new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0),
       ]);
@@ -131,6 +139,15 @@ describe("Gilded Rose", () => {
     test("its quality cannot leap over 50", () => {
       const gildedRose = new Shop([
         new Item("Backstage passes to a TAFKAL80ETC concert", 1, 49),
+      ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(0);
+      expect(gildedRose.items[0].quality).toBe(50);
+    });
+
+    test("its quality cannot increase if already at 50", () => {
+      const gildedRose = new Shop([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 1, 50),
       ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(0);

@@ -26,7 +26,7 @@ class Shop {
       } else {
         this.adjustSellIn(currentItem);
         const valueToSubtract = this.qualityDefaultLossAmount(currentItem);
-        this.adjustQuality(currentItem, valueToSubtract);
+        this.reduceQuality(currentItem, valueToSubtract);
       }
     }
   }
@@ -44,7 +44,7 @@ class Shop {
   // Adjustment methods
   // These methods change the quality / sellIn attributes of the items
 
-  adjustQuality(item, factor) {
+  reduceQuality(item, factor) {
     if (item.quality > 0) {
       item.quality += factor;
     }
@@ -75,9 +75,9 @@ class Shop {
       return;
     } else if (item.name === "Conjured Mana Cake") {
       if (this.checkIfExpired(item)) {
-        this.adjustQuality(item, this.qualityOverrideValues[item.name] * 2);
+        this.reduceQuality(item, this.qualityOverrideValues[item.name] * 2);
       } else {
-        this.adjustQuality(item, this.qualityOverrideValues[item.name]);
+        this.reduceQuality(item, this.qualityOverrideValues[item.name]);
       }
     } else if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
       if (this.itemCanIncreaseQuality(item)) {
