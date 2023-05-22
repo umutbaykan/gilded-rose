@@ -21,6 +21,14 @@ class Shop {
     item.sellIn -= 1;
   }
 
+  checkIfExpired(item) {
+    if (item.sellIn < 0) {
+      return -2;
+    } else {
+      return -1;
+    }
+  }
+
   itemCanIncreaseQuality(item) {
     if (item.quality === 50) {
       return false;
@@ -57,11 +65,11 @@ class Shop {
     for (let i = 0; i < this.items.length; i++) {
       const currentItem = this.items[i];
       if (currentItem.name in this.qualityOverrideValues) {
-        this.adjustSpecialItemQuality(currentItem);
         this.adjustSpecialItemSellIn(currentItem);
+        this.adjustSpecialItemQuality(currentItem);
       } else {
-        this.adjustQuality(currentItem, -1);
         this.lowerSellIn(currentItem);
+        this.adjustQuality(currentItem, this.checkIfExpired(currentItem));
       }
     }
   }

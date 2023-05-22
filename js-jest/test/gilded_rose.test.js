@@ -26,6 +26,14 @@ describe("Gilded Rose", () => {
       expect(gildedRose.items[0].sellIn).toBe(8);
       expect(gildedRose.items[0].quality).toBe(0);
     });
+
+    test("their quality drops by two if sellIn date is <0", () => {
+      const gildedRose = new Shop([new Item("foo", 1, 4)]);
+      gildedRose.updateQuality();
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(-1);
+      expect(gildedRose.items[0].quality).toBe(1);
+    })
   });
 
   describe('for aged brie', () => {
@@ -52,5 +60,12 @@ describe("Gilded Rose", () => {
       expect(gildedRose.items[0].sellIn).toBe(10);
       expect(gildedRose.items[0].quality).toBe(80);
     });
-  })
+
+    test('does not change sellIn value', () => {
+      const gildedRose = new Shop([new Item("Sulfuras, Hand of Ragnaros", -1, 80)]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(-1);
+      expect(gildedRose.items[0].quality).toBe(80);
+    });
+  });
 });
