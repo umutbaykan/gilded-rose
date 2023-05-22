@@ -10,10 +10,22 @@ class Shop {
   constructor(items = []) {
     this.items = items;
     this.specialItems = {
-      "Aged Brie": {qualityHandle: (item) => this.adjustAgedBrieQuality(item), sellInHandle: (item) => this.adjustSellIn(item)},
-      "Sulfuras, Hand of Ragnaros":  {qualityHandle: ()=>{return}, sellInHandle: ()=>{return}},
-      "Conjured Mana Cake":  {qualityHandle: (item) => this.adjustConjuredQuality(item), sellInHandle: (item) => this.adjustSellIn(item)},
-      "Backstage passes to a TAFKAL80ETC concert":  {qualityHandle: (item) => this.adjustBackstageQuality(item), sellInHandle: (item) => this.adjustSellIn(item)},
+      "Aged Brie": {
+        qualityHandle: (item) => this.adjustItemQuality(item, this.addQuality, 1, 2),
+        sellInHandle: (item) => this.adjustSellIn(item),
+      },
+      "Sulfuras, Hand of Ragnaros": {
+        qualityHandle: () => { return; },
+        sellInHandle: () => { return; },
+      },
+      "Conjured Mana Cake": {
+        qualityHandle: (item) => this.adjustItemQuality(item, this.reduceQuality, 2, 2),
+        sellInHandle: (item) => this.adjustSellIn(item),
+      },
+      "Backstage passes to a TAFKAL80ETC concert": {
+        qualityHandle: (item) => this.adjustBackstageQuality(item),
+        sellInHandle: (item) => this.adjustSellIn(item),
+      },
     };
   }
 
@@ -21,64 +33,28 @@ class Shop {
     for (let i = 0; i < this.items.length; i++) {
       const currentItem = this.items[i];
       if (currentItem.name in this.specialItems) {
-        this.specialItems[currentItem.name].sellInHandle(currentItem)
-        this.specialItems[currentItem.name].qualityHandle(currentItem)
+        this.specialItems[currentItem.name].sellInHandle(currentItem);
+        this.specialItems[currentItem.name].qualityHandle(currentItem);
       } else {
         this.adjustSellIn(currentItem);
-        this.adjustGeneralQuality(currentItem, 1);
+        this.adjustItemQuality(currentItem, this.reduceQuality, 1, 2);
       }
     }
   }
 
-  // Adjustment methods
-  // These methods change the quality / sellIn attributes of the items
-
-  reduceQuality(item, factor) {
-    if (item.quality > 0) {
-      item.quality -= factor;
-    }
-  }
-
-  addQuality(item, factor) {
-    if (item.quality + factor > 50) {
-      item.quality = 50
-    } else {
-      item.quality += factor;
-    }
-  }
-
-  adjustSellIn(item) {
-    item.sellIn -= 1;
-  }
-
   // Item specific adjustments
-  adjustAgedBrieQuality(item) {
-    if (this.isExpired(item)) {
-      this.addQuality(item, 2);
-    } else {
-      this.addQuality(item, 1);
-    }
-  }
 
-  adjustConjuredQuality(item) {
+  adjustItemQuality(item, operation, amount, factor) {
     if (this.isExpired(item)) {
-      this.reduceQuality(item, 4);
+      operation(item, amount * factor);
     } else {
-      this.reduceQuality(item, 2);
-    }
-  }
-
-  adjustGeneralQuality(item) {
-    if (this.isExpired(item)) {
-      this.reduceQuality(item, 2);
-    } else {
-      this.reduceQuality(item, 1);
+      operation(item, amount);
     }
   }
 
   adjustBackstageQuality(item) {
     if (this.isExpired(item)) {
-      item.quality = 0
+      item.quality = 0;
     } else if (item.sellIn < 5) {
       this.addQuality(item, 3);
     } else if (item.sellIn < 10) {
@@ -89,6 +65,24 @@ class Shop {
   }
 
   // Helper methods
+
+  reduceQuality(item, amount) {
+    if (item.quality > 0) {
+      item.quality -= amount;
+    }
+  }
+
+  addQuality(item, amount) {
+    if (item.quality + amount > 50) {
+      item.quality = 50;
+    } else {
+      item.quality += amount;
+    }
+  }
+
+  adjustSellIn(item) {
+    item.sellIn -= 1;
+  }
 
   isExpired(item) {
     if (item.sellIn < 0) {

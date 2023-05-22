@@ -202,5 +202,15 @@ describe("Gilded Rose", () => {
         expect(shop.items[i].quality).toEqual(requirements.day6[i][2]);
       }
     });
+
+    test("should pass accordingly for day 100", () => {
+      for (let i = 0; i < 100; i++) {
+        shop.updateQuality();
+      }
+      for (let i = 0; i < shop.items.length; i++) {
+        expect(shop.items[i].sellIn).toEqual(requirements.day100[i][1]);
+        expect(shop.items[i].quality).toEqual(requirements.day100[i][2]);
+      }
+    });
   });
 });

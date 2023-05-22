@@ -62,6 +62,18 @@ const requirements = {
     ["Backstage passes to a TAFKAL80ETC concert", -1, 0],
     ["Conjured Mana Cake", -4, 0],
   ],
+  day100: [
+    ["+5 Dexterity Vest", -90, 0],
+    ["Aged Brie", -98, 50],
+    ["Elixir of the Mongoose", -95, 0],
+    ["Sulfuras, Hand of Ragnaros", 0, 80],
+    ["Sulfuras, Hand of Ragnaros", -1, 80],
+    ["Backstage passes to a TAFKAL80ETC concert", -85, 0],
+    ["Backstage passes to a TAFKAL80ETC concert", -90, 0],
+    ["Backstage passes to a TAFKAL80ETC concert", -95, 0],
+    ["Backstage passes to a TAFKAL80ETC concert", -95, 0],
+    ["Conjured Mana Cake", -98, 0],
+  ],
 };
 
 module.exports = { items: items, requirements: requirements };
