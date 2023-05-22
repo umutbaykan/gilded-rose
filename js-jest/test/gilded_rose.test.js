@@ -93,5 +93,26 @@ describe("Gilded Rose", () => {
       expect(gildedRose.items[0].sellIn).toBe(10);
       expect(gildedRose.items[0].quality).toBe(1);
     });
+
+    test('it gains quality by 2 points when 5 < expiration < 10 days until expiry', () => {
+      const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 10, 0)]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(9);
+      expect(gildedRose.items[0].quality).toBe(2);
+    });
+
+    test('it gains quality by 3 points when 0 < expiration < 5 days until expiry', () => {
+      const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0)]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(4);
+      expect(gildedRose.items[0].quality).toBe(3);
+    });
+
+    test('quality drops to 0 if expiration date has passed', () => {
+      const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10)]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(-1);
+      expect(gildedRose.items[0].quality).toBe(0);
+    });
   });
 });

@@ -50,6 +50,13 @@ class Shop {
     }
   }
 
+  addQuality(item, factor) {
+    if (item.quality >= 50) {
+      return
+    } else
+    { item.quality += factor }
+  }
+
   adjustSellIn(item) {
     item.sellIn -= 1;
   }
@@ -57,7 +64,7 @@ class Shop {
   adjustSpecialItemQuality(item) {
     if (item.name === "Aged Brie") {
       if (this.itemCanIncreaseQuality(item)) {
-        item.quality += this.qualityOverrideValues[item.name];
+        this.addQuality(item, this.qualityOverrideValues[item.name]);
       }
     } else if (item.name === "Sulfuras, Hand of Ragnaros") {
       return;
@@ -71,7 +78,10 @@ class Shop {
       }
     } else if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
       if (this.itemCanIncreaseQuality(item)) {
-        item.quality += this.qualityOverrideValues[item.name];
+        if (item.sellIn < 0) { item.quality = 0}
+        else if (item.sellIn < 5) { this.addQuality(item, 3) }
+        else if (item.sellIn < 10) { this.addQuality(item, 2) }
+        else { this.addQuality(item, 1)}        
       }
     }
   }
