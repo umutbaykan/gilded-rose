@@ -9,6 +9,7 @@ const items = [
   new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
   new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10),
   new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10),
+  new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0),
   new Item("Conjured Mana Cake", 2, 12),
 ];
 
@@ -22,6 +23,7 @@ const requirements = {
     ["Backstage passes to a TAFKAL80ETC concert", 14, 21],
     ["Backstage passes to a TAFKAL80ETC concert", 9, 12],
     ["Backstage passes to a TAFKAL80ETC concert", 4, 13],
+    ["Backstage passes to a TAFKAL80ETC concert", 4, 3],
     ["Conjured Mana Cake", 1, 10],
   ],
   day2: [
@@ -33,6 +35,7 @@ const requirements = {
     ["Backstage passes to a TAFKAL80ETC concert", 13, 22],
     ["Backstage passes to a TAFKAL80ETC concert", 8, 14],
     ["Backstage passes to a TAFKAL80ETC concert", 3, 16],
+    ["Backstage passes to a TAFKAL80ETC concert", 3, 6],
     ["Conjured Mana Cake", 0, 8],
   ],
   day3: [
@@ -44,6 +47,7 @@ const requirements = {
     ["Backstage passes to a TAFKAL80ETC concert", 12, 23],
     ["Backstage passes to a TAFKAL80ETC concert", 7, 16],
     ["Backstage passes to a TAFKAL80ETC concert", 2, 19],
+    ["Backstage passes to a TAFKAL80ETC concert", 2, 9],
     ["Conjured Mana Cake", -1, 4],
   ],
   day6: [
@@ -54,6 +58,7 @@ const requirements = {
     ["Sulfuras, Hand of Ragnaros", -1, 80],
     ["Backstage passes to a TAFKAL80ETC concert", 9, 27],
     ["Backstage passes to a TAFKAL80ETC concert", 4, 23],
+    ["Backstage passes to a TAFKAL80ETC concert", -1, 0],
     ["Backstage passes to a TAFKAL80ETC concert", -1, 0],
     ["Conjured Mana Cake", -4, 0],
   ],

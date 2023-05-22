@@ -51,8 +51,8 @@ class Shop {
   }
 
   addQuality(item, factor) {
-    if (item.quality >= 50) {
-      return;
+    if (item.quality + factor > 50) {
+      item.quality = 50
     } else {
       item.quality += factor;
     }
@@ -113,10 +113,10 @@ class Shop {
   }
 
   itemCanIncreaseQuality(item) {
-    if (item.quality === 50) {
-      return false;
-    } else {
+    if (item.quality < 50) {
       return true;
+    } else {
+      return false;
     }
   }
 }

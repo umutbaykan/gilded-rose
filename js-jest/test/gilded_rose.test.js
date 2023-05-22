@@ -118,6 +118,24 @@ describe("Gilded Rose", () => {
       expect(gildedRose.items[0].sellIn).toBe(-1);
       expect(gildedRose.items[0].quality).toBe(0);
     });
+
+    test("its quality cannot rise over 50", () => {
+      const gildedRose = new Shop([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 21, 49),
+      ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(20);
+      expect(gildedRose.items[0].quality).toBe(50);
+    });
+
+    test("its quality cannot leap over 50", () => {
+      const gildedRose = new Shop([
+        new Item("Backstage passes to a TAFKAL80ETC concert", 1, 49),
+      ]);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).toBe(0);
+      expect(gildedRose.items[0].quality).toBe(50);
+    });
   });
 
   describe("test fixture scenarios", () => {
