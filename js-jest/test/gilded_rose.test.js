@@ -1,6 +1,8 @@
 const Shop = require("../src/gilded_rose");
 const Item = require("../src/item")
 const Conjured = require("../src/conjured")
+const AgedBrie = require("../src/agedBrie")
+
 const TestItems = require("./texttest_fixture").items;
 const TestRequirements = require("./texttest_fixture").requirements;
 
@@ -32,14 +34,14 @@ describe("Gilded Rose", () => {
 
   describe("for aged brie", () => {
     test("it should gain quality every day", () => {
-      const gildedRose = new Shop([new Item("Aged Brie", 2, 0)]);
+      const gildedRose = new Shop([new AgedBrie(2, 0)]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(1);
       expect(gildedRose.items[0].quality).toBe(1);
     });
 
     test("quality should not increase beyond 50", () => {
-      const gildedRose = new Shop([new Item("Aged Brie", 2, 49)]);
+      const gildedRose = new Shop([new AgedBrie(2, 49)]);
       gildedRose.updateQuality();
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(0);
@@ -47,7 +49,7 @@ describe("Gilded Rose", () => {
     });
 
     test("should gain twice the quality points once expired", () => {
-      const gildedRose = new Shop([new Item("Aged Brie", 1, 0)]);
+      const gildedRose = new Shop([new AgedBrie(1, 0)]);
       gildedRose.updateQuality();
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(-1);

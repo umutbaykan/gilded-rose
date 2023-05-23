@@ -24,14 +24,6 @@ class Shop {
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
       this.items[i].update()
-      // const currentItem = this.items[i];
-      // if (currentItem.name in this.specialItems) {
-      //   this.specialItems[currentItem.name].sellInHandle(currentItem);
-      //   this.specialItems[currentItem.name].qualityHandle(currentItem);
-      // } else {
-      //   this.adjustSellIn(currentItem);
-      //   this.adjustItemQuality(currentItem, this.reduceQuality, 1, 2);
-      // }
     }
   }
 
@@ -54,34 +46,6 @@ class Shop {
       this.addQuality(item, 2);
     } else {
       this.addQuality(item, 1);
-    }
-  }
-
-  // Helper methods
-
-  reduceQuality(item, amount) {
-    if (item.quality > 0) {
-      item.quality -= amount;
-    }
-  }
-
-  addQuality(item, amount) {
-    if (item.quality + amount > 50) {
-      item.quality = 50;
-    } else {
-      item.quality += amount;
-    }
-  }
-
-  adjustSellIn(item) {
-    item.sellIn -= 1;
-  }
-
-  isExpired(item) {
-    if (item.sellIn < 0) {
-      return true;
-    } else {
-      return false;
     }
   }
 }
