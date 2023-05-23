@@ -1,6 +1,6 @@
-const Item = require("./item")
+const Template = require("./template")
 
-class Backstage extends Item {
+class Backstage extends Template {
   constructor(sellIn, quality) {
     super("Backstage passes to a TAFKAL80ETC concert", sellIn, quality)
   }

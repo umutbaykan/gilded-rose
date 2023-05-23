@@ -1,6 +1,6 @@
-const Item = require("./item")
+const Template = require("./template")
 
-class Conjured extends Item {
+class Conjured extends Template {
   constructor(sellIn, quality) {
     super('Conjured Mana Cake', sellIn, quality)
   }

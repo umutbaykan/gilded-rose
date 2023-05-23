@@ -1,6 +1,6 @@
-const Item = require("./item")
+const Template = require("./template")
 
-class Sulfuras extends Item {
+class Sulfuras extends Template {
   constructor(sellIn, quality) {
     super('Sulfuras, Hand of Ragnaros', sellIn, quality)
   }

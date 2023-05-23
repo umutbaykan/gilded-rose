@@ -171,7 +171,7 @@ describe("Gilded Rose", () => {
 
     beforeEach(() => {
       requirements = TestRequirements;
-      shop = new Shop(  
+      shop = new Shop([
         new Item("+5 Dexterity Vest", 10, 20),
         new AgedBrie(2, 0),
         new Item("Elixir of the Mongoose", 5, 7),
@@ -181,7 +181,7 @@ describe("Gilded Rose", () => {
         new Backstage(10, 10),
         new Backstage(5, 10),
         new Backstage(5, 0),
-        new Conjured(2, 12));
+        new Conjured(2, 12)]);
     });
 
     test("should pass accordingly for day 1", () => {
