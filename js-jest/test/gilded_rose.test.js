@@ -1,8 +1,9 @@
 const Shop = require("../src/gilded_rose");
-const Item = require("../src/item")
-const Conjured = require("../src/conjured")
-const Sulfuras = require("../src/sulfuras")
-const AgedBrie = require("../src/agedBrie")
+const Item = require("../src/item");
+const Conjured = require("../src/conjured");
+const Sulfuras = require("../src/sulfuras");
+const AgedBrie = require("../src/agedBrie");
+const Backstage = require("../src/backstage");
 
 const TestItems = require("./texttest_fixture").items;
 const TestRequirements = require("./texttest_fixture").requirements;
@@ -95,10 +96,10 @@ describe("Gilded Rose", () => {
     });
   });
 
-  describe("for Backstage passes", () => {
+  describe("for backstage passes", () => {
     test("it gains quality by 1 point when expiration > 10 until expiry", () => {
       const gildedRose = new Shop([
-        new Item("Backstage passes to a TAFKAL80ETC concert", 11, 0),
+        new Backstage(11, 0),
       ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(10);
@@ -107,7 +108,7 @@ describe("Gilded Rose", () => {
 
     test("it gains quality by 2 points when 5 < expiration <= 10 days until expiry", () => {
       const gildedRose = new Shop([
-        new Item("Backstage passes to a TAFKAL80ETC concert", 10, 0),
+        new Backstage(10, 0),
       ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(9);
@@ -116,7 +117,7 @@ describe("Gilded Rose", () => {
 
     test("it gains quality by 3 points when 0 < expiration <= 5 days until expiry", () => {
       const gildedRose = new Shop([
-        new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0),
+        new Backstage(5, 0),
       ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(4);
@@ -125,7 +126,7 @@ describe("Gilded Rose", () => {
 
     test("quality drops to 0 if expiration date has passed", () => {
       const gildedRose = new Shop([
-        new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10),
+        new Backstage(0, 10),
       ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(-1);
@@ -134,7 +135,7 @@ describe("Gilded Rose", () => {
 
     test("its quality cannot rise over 50", () => {
       const gildedRose = new Shop([
-        new Item("Backstage passes to a TAFKAL80ETC concert", 21, 49),
+        new Backstage(21, 49),
       ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(20);
@@ -143,7 +144,7 @@ describe("Gilded Rose", () => {
 
     test("its quality cannot leap over 50", () => {
       const gildedRose = new Shop([
-        new Item("Backstage passes to a TAFKAL80ETC concert", 1, 49),
+        new Backstage(1, 49),
       ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(0);
@@ -152,7 +153,7 @@ describe("Gilded Rose", () => {
 
     test("its quality cannot increase if already at 50", () => {
       const gildedRose = new Shop([
-        new Item("Backstage passes to a TAFKAL80ETC concert", 1, 50),
+        new Backstage(1, 50),
       ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(0);
