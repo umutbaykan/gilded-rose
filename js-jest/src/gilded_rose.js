@@ -23,14 +23,15 @@ class Shop {
 
   updateQuality() {
     for (let i = 0; i < this.items.length; i++) {
-      const currentItem = this.items[i];
-      if (currentItem.name in this.specialItems) {
-        this.specialItems[currentItem.name].sellInHandle(currentItem);
-        this.specialItems[currentItem.name].qualityHandle(currentItem);
-      } else {
-        this.adjustSellIn(currentItem);
-        this.adjustItemQuality(currentItem, this.reduceQuality, 1, 2);
-      }
+      this.items[i].update()
+      // const currentItem = this.items[i];
+      // if (currentItem.name in this.specialItems) {
+      //   this.specialItems[currentItem.name].sellInHandle(currentItem);
+      //   this.specialItems[currentItem.name].qualityHandle(currentItem);
+      // } else {
+      //   this.adjustSellIn(currentItem);
+      //   this.adjustItemQuality(currentItem, this.reduceQuality, 1, 2);
+      // }
     }
   }
 
