@@ -1,4 +1,5 @@
-const { Shop, Item } = require("../src/gilded_rose");
+const Shop = require("../src/gilded_rose");
+const Item = require("../src/item")
 const TestItems = require("./texttest_fixture").items;
 const TestRequirements = require("./texttest_fixture").requirements;
 
