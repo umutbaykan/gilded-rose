@@ -1,23 +1,3 @@
-const Shop = require("../src/gilded_rose");
-const Item = require("../src/components/item");
-const Conjured = require("../src/components/conjured");
-const Sulfuras = require("../src/components/sulfuras");
-const AgedBrie = require("../src/components/agedBrie");
-const Backstage = require("../src/components/backstage");
-
-const items = [
-  new Item("+5 Dexterity Vest", 10, 20),
-  new AgedBrie(2, 0),
-  new Item("Elixir of the Mongoose", 5, 7),
-  new Sulfuras(0, 80),
-  new Sulfuras(-1, 80),
-  new Backstage(15, 20),
-  new Backstage(10, 10),
-  new Backstage(5, 10),
-  new Backstage(5, 0),
-  new Conjured(2, 12),
-];
-
 const requirements = {
   day1: [
     ["+5 Dexterity Vest", 9, 19],
@@ -81,17 +61,4 @@ const requirements = {
   ],
 };
 
-if (require.main === module) {
-  const days = Number(process.argv[2]) || 2;
-  const gildedRose = new Shop(items);
-  for (let day = 0; day < days; day++) {
-    console.log(`\n-------- day ${day} --------`);
-    console.log("name, sellIn, quality");
-    items.forEach((item) =>
-      console.log(`${item.name}, ${item.sellIn}, ${item.quality}`)
-    );
-    gildedRose.updateQuality();
-  }
-}
-
-module.exports = { items: items, requirements: requirements };
+module.exports = requirements

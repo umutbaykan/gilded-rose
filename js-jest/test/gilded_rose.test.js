@@ -5,10 +5,14 @@ const Sulfuras = require("../src/components/sulfuras");
 const AgedBrie = require("../src/components/agedBrie");
 const Backstage = require("../src/components/backstage");
 
-const TestItems = require("./texttest_fixture").items;
-const TestRequirements = require("./texttest_fixture").requirements;
+const TestRequirements = require("./texttest_fixture");
 
 describe("Gilded Rose", () => {
+  test('can be initiated as an empty array', () => {
+    const gildedRose = new Shop()
+    expect(gildedRose.items).toEqual([])
+  })
+
   describe("for regular items that have >0 quality and sellIn", () => {
     test("they should only drop by one", () => {
       const gildedRose = new Shop([new Item("foo", 10, 5)]);
@@ -167,8 +171,17 @@ describe("Gilded Rose", () => {
 
     beforeEach(() => {
       requirements = TestRequirements;
-      const unmodifiedCopy = JSON.parse(JSON.stringify(TestItems));
-      shop = new Shop(unmodifiedCopy);
+      shop = new Shop(  
+        new Item("+5 Dexterity Vest", 10, 20),
+        new AgedBrie(2, 0),
+        new Item("Elixir of the Mongoose", 5, 7),
+        new Sulfuras(0, 80),
+        new Sulfuras(-1, 80),
+        new Backstage(15, 20),
+        new Backstage(10, 10),
+        new Backstage(5, 10),
+        new Backstage(5, 0),
+        new Conjured(2, 12));
     });
 
     test("should pass accordingly for day 1", () => {
