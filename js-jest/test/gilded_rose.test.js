@@ -1,9 +1,9 @@
 const Shop = require("../src/gilded_rose");
-const Item = require("../src/item");
-const Conjured = require("../src/conjured");
-const Sulfuras = require("../src/sulfuras");
-const AgedBrie = require("../src/agedBrie");
-const Backstage = require("../src/backstage");
+const Item = require("../src/components/item");
+const Conjured = require("../src/components/conjured");
+const Sulfuras = require("../src/components/sulfuras");
+const AgedBrie = require("../src/components/agedBrie");
+const Backstage = require("../src/components/backstage");
 
 const TestItems = require("./texttest_fixture").items;
 const TestRequirements = require("./texttest_fixture").requirements;

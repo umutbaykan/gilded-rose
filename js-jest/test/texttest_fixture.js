@@ -1,17 +1,21 @@
 const Shop = require("../src/gilded_rose");
-const Item = require("../src/item")
+const Item = require("../src/components/item");
+const Conjured = require("../src/components/conjured");
+const Sulfuras = require("../src/components/sulfuras");
+const AgedBrie = require("../src/components/agedBrie");
+const Backstage = require("../src/components/backstage");
 
 const items = [
   new Item("+5 Dexterity Vest", 10, 20),
-  new Item("Aged Brie", 2, 0),
+  new AgedBrie(2, 0),
   new Item("Elixir of the Mongoose", 5, 7),
-  new Item("Sulfuras, Hand of Ragnaros", 0, 80),
-  new Item("Sulfuras, Hand of Ragnaros", -1, 80),
-  new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
-  new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10),
-  new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10),
-  new Item("Backstage passes to a TAFKAL80ETC concert", 5, 0),
-  new Item("Conjured Mana Cake", 2, 12),
+  new Sulfuras(0, 80),
+  new Sulfuras(-1, 80),
+  new Backstage(15, 20),
+  new Backstage(10, 10),
+  new Backstage(5, 10),
+  new Backstage(5, 0),
+  new Conjured(2, 12),
 ];
 
 const requirements = {

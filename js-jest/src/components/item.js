@@ -6,12 +6,12 @@ class Item {
   }
 
   update() {
+    this.sellIn -= 1
     if (this.isExpired()) {
       this.reduceQuality(2);
     } else {
       this.reduceQuality(1)
     }
-    this.sellIn -= 1
   }
 
   isExpired() {
