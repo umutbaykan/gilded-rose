@@ -1,6 +1,7 @@
 const Shop = require("../src/gilded_rose");
 const Item = require("../src/item")
 const Conjured = require("../src/conjured")
+const Sulfuras = require("../src/sulfuras")
 const AgedBrie = require("../src/agedBrie")
 
 const TestItems = require("./texttest_fixture").items;
@@ -60,7 +61,7 @@ describe("Gilded Rose", () => {
   describe("for sulfuras the legendary item", () => {
     test("it should not gain or lose quality", () => {
       const gildedRose = new Shop([
-        new Item("Sulfuras, Hand of Ragnaros", 0, 80),
+        new Sulfuras(0, 80),
       ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(0);
@@ -69,7 +70,7 @@ describe("Gilded Rose", () => {
 
     test("does not change sellIn value", () => {
       const gildedRose = new Shop([
-        new Item("Sulfuras, Hand of Ragnaros", -1, 80),
+        new Sulfuras(-1, 80),
       ]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(-1);
