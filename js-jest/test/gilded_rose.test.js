@@ -1,5 +1,6 @@
 const Shop = require("../src/gilded_rose");
 const Item = require("../src/components/item");
+const Template = require("../src/components/template");
 const Conjured = require("../src/components/conjured");
 const Sulfuras = require("../src/components/sulfuras");
 const AgedBrie = require("../src/components/agedBrie");
@@ -8,11 +9,18 @@ const Backstage = require("../src/components/backstage");
 const TestRequirements = require("./texttest_fixture");
 
 describe("Gilded Rose", () => {
-  test("can be initiated as an empty array", () => {
-    const gildedRose = new Shop();
-    expect(gildedRose.items).toEqual([]);
-  });
+  describe("upon initiation", () => {
+    test("can be initiated as an empty array", () => {
+      const gildedRose = new Shop();
+      expect(gildedRose.items).toEqual([]);
+    });
 
+    test("it maps item objects into template objects", () => {
+      const gildedRose = new Shop([new Item("foo", 10, 5)])
+      expect(gildedRose.items[0] instanceof Template).toEqual(true);
+    });
+  })
+  
   describe("for regular items that have >0 quality and sellIn", () => {
     test("they should only drop by one", () => {
       const gildedRose = new Shop([new Item("foo", 10, 5)]);
