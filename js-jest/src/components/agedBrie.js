@@ -1,3 +1,4 @@
+const { isExpired, addQuality } = require("./helpers");
 const Template = require("./template");
 
 class AgedBrie extends Template {
@@ -7,10 +8,10 @@ class AgedBrie extends Template {
 
   update() {
     this.sellIn -= 1;
-    if (this.isExpired()) {
-      this.addQuality(2);
+    if (isExpired(this)) {
+      addQuality(this, 2);
     } else {
-      this.addQuality(1);
+      addQuality(this, 1);
     }
   }
 }

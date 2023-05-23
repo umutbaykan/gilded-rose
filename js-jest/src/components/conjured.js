@@ -1,3 +1,4 @@
+const { isExpired, reduceQuality } = require("./helpers");
 const Template = require("./template");
 
 class Conjured extends Template {
@@ -7,10 +8,10 @@ class Conjured extends Template {
 
   update() {
     this.sellIn -= 1;
-    if (this.isExpired()) {
-      this.reduceQuality(4);
+    if (isExpired(this)) {
+      reduceQuality(this, 4);
     } else {
-      this.reduceQuality(2);
+      reduceQuality(this, 2);
     }
   }
 }

@@ -1,3 +1,4 @@
+const { isExpired, addQuality } = require("./helpers");
 const Template = require("./template");
 
 class Backstage extends Template {
@@ -7,14 +8,14 @@ class Backstage extends Template {
 
   update() {
     this.sellIn -= 1;
-    if (this.isExpired()) {
+    if (isExpired(this)) {
       this.quality = 0;
     } else if (this.sellIn < 5) {
-      this.addQuality(3);
+      addQuality(this, 3);
     } else if (this.sellIn < 10) {
-      this.addQuality(2);
+      addQuality(this, 2);
     } else {
-      this.addQuality(1);
+      addQuality(this, 1);
     }
   }
 }
