@@ -1,5 +1,6 @@
 const Shop = require("../src/gilded_rose");
 const Item = require("../src/item")
+const Conjured = require("../src/conjured")
 const TestItems = require("./texttest_fixture").items;
 const TestRequirements = require("./texttest_fixture").requirements;
 
@@ -76,14 +77,14 @@ describe("Gilded Rose", () => {
 
   describe("for conjured items", () => {
     test("it loses quality by 2 points on a regular day", () => {
-      const gildedRose = new Shop([new Item("Conjured Mana Cake", 2, 4)]);
+      const gildedRose = new Shop([new Conjured(2, 4)]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(1);
       expect(gildedRose.items[0].quality).toBe(2);
     });
 
     test("it loses quality by 4 points when expired", () => {
-      const gildedRose = new Shop([new Item("Conjured Mana Cake", 1, 8)]);
+      const gildedRose = new Shop([new Conjured(1, 8)]);
       gildedRose.updateQuality();
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(-1);
