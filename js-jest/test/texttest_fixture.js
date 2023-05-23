@@ -61,4 +61,4 @@ const requirements = {
   ],
 };
 
-module.exports = requirements
+module.exports = requirements;

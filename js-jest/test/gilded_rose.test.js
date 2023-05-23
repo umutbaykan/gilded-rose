@@ -8,10 +8,10 @@ const Backstage = require("../src/components/backstage");
 const TestRequirements = require("./texttest_fixture");
 
 describe("Gilded Rose", () => {
-  test('can be initiated as an empty array', () => {
-    const gildedRose = new Shop()
-    expect(gildedRose.items).toEqual([])
-  })
+  test("can be initiated as an empty array", () => {
+    const gildedRose = new Shop();
+    expect(gildedRose.items).toEqual([]);
+  });
 
   describe("for regular items that have >0 quality and sellIn", () => {
     test("they should only drop by one", () => {
@@ -65,18 +65,14 @@ describe("Gilded Rose", () => {
 
   describe("for sulfuras the legendary item", () => {
     test("it should not gain or lose quality", () => {
-      const gildedRose = new Shop([
-        new Sulfuras(0, 80),
-      ]);
+      const gildedRose = new Shop([new Sulfuras(0, 80)]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(0);
       expect(gildedRose.items[0].quality).toBe(80);
     });
 
     test("does not change sellIn value", () => {
-      const gildedRose = new Shop([
-        new Sulfuras(-1, 80),
-      ]);
+      const gildedRose = new Shop([new Sulfuras(-1, 80)]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(-1);
       expect(gildedRose.items[0].quality).toBe(80);
@@ -102,63 +98,49 @@ describe("Gilded Rose", () => {
 
   describe("for backstage passes", () => {
     test("it gains quality by 1 point when expiration > 10 until expiry", () => {
-      const gildedRose = new Shop([
-        new Backstage(11, 0),
-      ]);
+      const gildedRose = new Shop([new Backstage(11, 0)]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(10);
       expect(gildedRose.items[0].quality).toBe(1);
     });
 
     test("it gains quality by 2 points when 5 < expiration <= 10 days until expiry", () => {
-      const gildedRose = new Shop([
-        new Backstage(10, 0),
-      ]);
+      const gildedRose = new Shop([new Backstage(10, 0)]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(9);
       expect(gildedRose.items[0].quality).toBe(2);
     });
 
     test("it gains quality by 3 points when 0 < expiration <= 5 days until expiry", () => {
-      const gildedRose = new Shop([
-        new Backstage(5, 0),
-      ]);
+      const gildedRose = new Shop([new Backstage(5, 0)]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(4);
       expect(gildedRose.items[0].quality).toBe(3);
     });
 
     test("quality drops to 0 if expiration date has passed", () => {
-      const gildedRose = new Shop([
-        new Backstage(0, 10),
-      ]);
+      const gildedRose = new Shop([new Backstage(0, 10)]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(-1);
       expect(gildedRose.items[0].quality).toBe(0);
     });
 
     test("its quality cannot rise over 50", () => {
-      const gildedRose = new Shop([
-        new Backstage(21, 49),
-      ]);
+      const gildedRose = new Shop([new Backstage(21, 49)]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(20);
       expect(gildedRose.items[0].quality).toBe(50);
     });
 
     test("its quality cannot leap over 50", () => {
-      const gildedRose = new Shop([
-        new Backstage(1, 49),
-      ]);
+      const gildedRose = new Shop([new Backstage(1, 49)]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(0);
       expect(gildedRose.items[0].quality).toBe(50);
     });
 
     test("its quality cannot increase if already at 50", () => {
-      const gildedRose = new Shop([
-        new Backstage(1, 50),
-      ]);
+      const gildedRose = new Shop([new Backstage(1, 50)]);
       gildedRose.updateQuality();
       expect(gildedRose.items[0].sellIn).toBe(0);
       expect(gildedRose.items[0].quality).toBe(50);
@@ -181,7 +163,8 @@ describe("Gilded Rose", () => {
         new Backstage(10, 10),
         new Backstage(5, 10),
         new Backstage(5, 0),
-        new Conjured(2, 12)]);
+        new Conjured(2, 12),
+      ]);
     });
 
     test("should pass accordingly for day 1", () => {

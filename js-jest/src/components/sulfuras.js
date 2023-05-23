@@ -1,12 +1,11 @@
-const Template = require("./template")
+const Template = require("./template");
 
 class Sulfuras extends Template {
   constructor(sellIn, quality) {
-    super('Sulfuras, Hand of Ragnaros', sellIn, quality)
+    super("Sulfuras, Hand of Ragnaros", sellIn, quality);
   }
 
-  update() {
-  }
+  update() {}
 }
 
-module.exports = Sulfuras
+module.exports = Sulfuras;

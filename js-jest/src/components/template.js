@@ -6,11 +6,11 @@ class Template {
   }
 
   update() {
-    this.sellIn -= 1
+    this.sellIn -= 1;
     if (this.isExpired()) {
       this.reduceQuality(2);
     } else {
-      this.reduceQuality(1)
+      this.reduceQuality(1);
     }
   }
 
@@ -37,4 +37,4 @@ class Template {
   }
 }
 
-module.exports = Template
+module.exports = Template;
