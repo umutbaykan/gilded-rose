@@ -1,4 +1,4 @@
-const { Item } = require("../src/gilded_rose");
+const { Item, Shop } = require("../src/gilded_rose");
 
 const items = [
   new Item("+5 Dexterity Vest", 10, 20),
@@ -75,5 +75,18 @@ const requirements = {
     ["Conjured Mana Cake", -98, 0],
   ],
 };
+
+if (require.main === module) {
+  const days = Number(process.argv[2]) || 2;
+  const gildedRose = new Shop(items);
+  for (let day = 0; day < days; day++) {
+    console.log(`\n-------- day ${day} --------`);
+    console.log("name, sellIn, quality");
+    items.forEach((item) =>
+      console.log(`${item.name}, ${item.sellIn}, ${item.quality}`)
+    );
+    gildedRose.updateQuality();
+  }
+}
 
 module.exports = { items: items, requirements: requirements };
