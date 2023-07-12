@@ -16,11 +16,11 @@ describe("Gilded Rose", () => {
     });
 
     test("it maps item objects into template objects", () => {
-      const gildedRose = new Shop([new Item("foo", 10, 5)])
+      const gildedRose = new Shop([new Item("foo", 10, 5)]);
       expect(gildedRose.items[0] instanceof Template).toEqual(true);
     });
-  })
-  
+  });
+
   describe("for regular items that have >0 quality and sellIn", () => {
     test("they should only drop by one", () => {
       const gildedRose = new Shop([new Item("foo", 10, 5)]);
